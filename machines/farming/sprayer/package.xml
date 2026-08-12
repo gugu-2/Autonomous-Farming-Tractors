@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>agro_ai_sprayer</name>
+  <version>1.0.0</version>
+  <description>AGRO-AI Tier 2 Sprayer Logic and Launch Files</description>
+  <maintainer email="dev@agro-ai.com">AGRO-AI Team</maintainer>
+  <license>Proprietary</license>
+
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>agro_ai_world_model</depend>
+  <depend>agro_ai_actuator</depend>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

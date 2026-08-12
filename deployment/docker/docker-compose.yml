@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  agro_ai_core:
+    build: 
+      context: ../..
+      dockerfile: deployment/docker/Dockerfile.orin_nano
+    image: agro_ai/orin_nano:latest
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,video,utility
+      - ROS_DOMAIN_ID=42
+    network_mode: "host"
+    devices:
+      # RealSense cameras
+      - "/dev/video0:/dev/video0"
+      - "/dev/video1:/dev/video1"
+      - "/dev/video2:/dev/video2"
+      # Arduino / Hardware serial
+      - "/dev/ttyACM0:/dev/ttyACM0"
+    volumes:
+      - /dev/shm:/dev/shm
+    command: >
+      /bin/bash -c "source /opt/ros/humble/setup.bash && 
+      source install/setup.bash && 
+      ros2 run agro_ai_world_model trt_yolo_node"
+
+  telemetry:
+    image: agro_ai/orin_nano:latest
+    runtime: nvidia
+    environment:
+      - ROS_DOMAIN_ID=42
+    network_mode: "host"
+    command: >
+      /bin/bash -c "source /opt/ros/humble/setup.bash && 
+      source install/setup.bash && 
+      ros2 run agro_ai_telemetry mqtt_bridge_node"

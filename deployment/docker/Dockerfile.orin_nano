@@ -1,0 +1,28 @@
+# Base image optimized for NVIDIA Jetson Orin Nano
+FROM dustynv/ros:humble-pytorch-l4t-r35.2.1
+
+# Set workspace
+WORKDIR /workspace/AGRO_AI_PROJECT
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-serial \
+    python3-numpy \
+    python3-scipy \
+    ros-humble-sensor-msgs \
+    ros-humble-geometry-msgs \
+    ros-humble-std-msgs \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install python dependencies for Ultralytics YOLOv8
+RUN pip3 install --no-cache-dir ultralytics paho-mqtt
+
+# Copy the entire project repository into the container
+COPY . /workspace/AGRO_AI_PROJECT
+
+# Build the ROS2 workspace
+RUN /bin/bash -c "source /opt/ros/humble/setup.bash && colcon build --symlink-install"
+
+# Default entrypoint
+CMD ["/bin/bash", "-c", "source /opt/ros/humble/setup.bash && source install/setup.bash && ros2 run agro_ai_world_model trt_yolo_node"]
