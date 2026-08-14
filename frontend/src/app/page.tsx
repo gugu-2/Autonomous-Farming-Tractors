@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -20,8 +20,10 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Activity, Battery, ShieldAlert, Cpu, Camera, MapPin, Gauge } from "lucide-react";
 
+import { useMqttTelemetry } from "@/hooks/useMqttTelemetry";
+
 export default function Dashboard() {
-  const [telemetry, setTelemetry] = useState({
+  const { telemetry, setTelemetry, triggerEStop: triggerMqttEStop } = useMqttTelemetry({
     battery: 87,
     cpu: 45,
     memory: 62,
@@ -38,22 +40,8 @@ export default function Dashboard() {
     { id: "EXCAVATOR-01", status: "ACTIVE", task: "Trenching", battery: 92 },
   ]);
 
-  // Simulate incoming telemetry data
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTelemetry((prev) => ({
-        ...prev,
-        battery: Math.max(0, prev.battery - (Math.random() > 0.8 ? 1 : 0)),
-        cpu: Math.floor(30 + Math.random() * 40),
-        memory: Math.floor(50 + Math.random() * 30),
-        speed: prev.health === "E-STOP" ? 0.0 : +(Math.random() * 5).toFixed(1)
-      }));
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
-
   const triggerEStop = () => {
-    setTelemetry(prev => ({ ...prev, health: "E-STOP", speed: 0.0 }));
+    triggerMqttEStop();
     setActiveMachines(prev => prev.map(m => ({ ...m, status: "HALTED" })));
   };
 

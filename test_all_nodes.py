@@ -4,7 +4,7 @@ import glob
 from pathlib import Path
 
 def main():
-    project_root = r"c:\Users\majip\Downloads\rl-jepa-car ai\AGRO_AI_PROJECT"
+    project_root = r"c:\Users\majip\Downloads\AGRO_AI_PROJECT"
     
     # Directories to search
     search_dirs = [

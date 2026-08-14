@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Inter, Outfit, Raleway } from "next/font/google";
+import { Outfit, Raleway } from "next/font/google";
 import { cn } from "@/lib/utils";
 
 const ralewayHeading = Raleway({subsets:['latin'],variable:'--font-heading'});

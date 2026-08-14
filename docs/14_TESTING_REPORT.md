@@ -4,8 +4,8 @@ The following report details the mock-execution results for all executable Pytho
 
 ### Summary
 - **Total Scripts Tested**: 17
-- **Passed**: 17
-- **Failed**: 0
+- **Passed**: 16
+- **Failed**: 1
 
 ## core\actuator\agro_ai_actuator\nozzle_controller.py - ✅ PASS
 ```text
@@ -67,10 +67,9 @@ WARNING: rclpy not found. Running in mock mode.
 [INFO] Evaluated YOLO detections for safety breaches.
 ```
 
-## core\telemetry\agro_ai_telemetry\mqtt_bridge_node.py - ✅ PASS
+## core\telemetry\agro_ai_telemetry\mqtt_bridge_node.py - ⚠️ TIMEOUT
 ```text
-WARNING: rclpy not found. Running in mock mode.
-[INFO] [MOCK MQTT PUBLISH] Topic: telemetry/agro_ai_robot_001 | Payload: {"timestamp": 1786528871.4496393, "device_id": "agro_ai_robot_001", "health": "UNKNOWN", "battery_level": 0.0}
+Script timed out after 10 seconds.
 ```
 
 ## core\world_model\agro_ai_world_model\trt_yolo_node.py - ✅ PASS
@@ -81,7 +80,7 @@ ROS2 not installed. Running a simple test instance...
 [INFO] Loading YOLO model from: yolov8s.pt
 [INFO] YOLO Detector node initialized and waiting for images.
 Simulating camera frame arrival...
-[PUBLISH] {"timestamp": 1786528871.633443, "detections": [{"cam": 4, "x": 320.0, "y": 320.0, "conf": 0.92}], "latency_ms": 15.610456466674805}
+[PUBLISH] {"timestamp": 1786716561.1612258, "detections": [{"cam": 4, "x": 320.0, "y": 320.0, "conf": 0.92}], "latency_ms": 15.58685302734375}
 [DEBUG] Published 1 weeds from cam 4
 Test complete.
 ```
@@ -142,8 +141,8 @@ WARNING: rclpy not found. Running in mock mode.
 [INFO] Combine Header Height PID Controller initialized.
 [INFO] Height: 0.150m | Target: 0.150m | Error: 0.000m | Hydraulic Cmd: 0.000
 [INFO] Height: 0.140m | Target: 0.150m | Error: 0.010m | Hydraulic Cmd: 0.017
-[INFO] Height: 0.100m | Target: 0.150m | Error: 0.050m | Hydraulic Cmd: 0.080
-[INFO] Height: 0.050m | Target: 0.150m | Error: 0.100m | Hydraulic Cmd: 0.146
+[INFO] Height: 0.100m | Target: 0.150m | Error: 0.050m | Hydraulic Cmd: 0.081
+[INFO] Height: 0.050m | Target: 0.150m | Error: 0.100m | Hydraulic Cmd: 0.147
 [INFO] Height: 0.080m | Target: 0.150m | Error: 0.070m | Hydraulic Cmd: 0.071
 [INFO] Height: 0.120m | Target: 0.150m | Error: 0.030m | Hydraulic Cmd: 0.019
 [INFO] Height: 0.150m | Target: 0.150m | Error: 0.000m | Hydraulic Cmd: -0.012
